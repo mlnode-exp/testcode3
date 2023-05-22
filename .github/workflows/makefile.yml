@@ -29,10 +29,18 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
     
+    # Configures your CMake project. Be sure the compile_commands.json file is created.
+    - name: Configure project
+      run: cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=1 -S . -B build
+
+    # Builds your CMake project. (This step is optional, as it is not required for code analysis).
+    - name: Build project (optional)
+      run: cpptesttrace cmake --build build
+    
     # Builds your Make project using 'cpptesttrace' to collect input data for code analysis.
     # Be sure 'cpptesttrace' is available on $PATH.
-    - name: Build project
-      run: cpptesttrace make clean all
+    #- name: Build project
+    #  run: cpptesttrace make clean all
 
     - name: Run C/C++test
       uses: parasoft/run-cpptest-action@2.0.0
@@ -40,6 +48,7 @@ jobs:
         # C/C++test workspace will be created in '../workspace'.
         # C/C++test will create a new project based on the provided .bdf file.
         additionalParams: '-localsettings cpptestcli.properties'
+        input: build/cpptestscan.bdf
         commandLinePattern: '${cpptestcli} -data ../workspace -config "${testConfig}" -report "${reportDir}" -bdf "${input}" ${additionalParams}'
 
     # Runs code analysis with C/C++test.
