@@ -35,7 +35,7 @@ jobs:
 
     # Builds your CMake project. (This step is optional, as it is not required for code analysis).
     - name: Build project (optional)
-      run: cpptesttrace --cpptesttraceProjectName=Timer msbuild build/Timer.sln
+      run: cd build; cpptesttrace --cpptesttraceProjectName=Timer make clean all
     
     # Builds your Make project using 'cpptesttrace' to collect input data for code analysis.
     # Be sure 'cpptesttrace' is available on $PATH.
@@ -47,7 +47,7 @@ jobs:
       with:
         # C/C++test workspace will be created in '../workspace'.
         # C/C++test will create a new project based on the provided .bdf file.
-        additionalParams: '-localsettings cpptestcli.properties'
+        additionalParams: '-localsettings cpptestcli.properties -property bdf.import.compiler.family=gcc_9-64'
         input: build/cpptestscan.bdf
         commandLinePattern: '${cpptestcli} -data ../workspace -config "${testConfig}" -report "${reportDir}" -bdf "${input}" ${additionalParams}'
 
