@@ -46,7 +46,7 @@ jobs:
       run: make CC="cpptestcc -compiler gcc_9-64 -line-coverage -- gcc" LINK_FLAGS=/home/mlyko/sesja_2023_1/standard/cpptest/runtime/lib/libcpptest64.so  clean all 
 
     - name: Run application
-      run: ./timer
+      run: ./timer.exe
     
     - name: Run C/C++test
       uses: parasoft/run-cpptest-action@2.0.0
