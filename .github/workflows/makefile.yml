@@ -43,7 +43,7 @@ jobs:
       run: cpptesttrace make clean all
   
     - name: Prepare instrumentation
-      run: make CC="cpptestcc -compiler gcc_9-64 -line-coverage -- gcc" LINK_FLAGS=/home/mlyko/sesja_2023_1/standard/cpptest/runtime/lib/libcpptest  clean all 
+      run: make CC="cpptestcc -compiler gcc_9-64 -line-coverage -- gcc" LINK_FLAGS=/home/mlyko/sesja_2023_1/standard/cpptest/runtime/lib/libcpptest64.so  clean all 
 
     - name: Run application
       run: ./timer
