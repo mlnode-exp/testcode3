@@ -41,17 +41,24 @@ jobs:
     # Be sure 'cpptesttrace' is available on $PATH.
     - name: Build project
       run: cpptesttrace make clean all
+  
+    - name: Prepare instrumentation
+      run: make CC="cpptestcc -compiler gcc_9-64 -line-coverage -- gcc" LINK_FLAGS=/home/mlyko/sesja_2023_1/standard/cpptest/runtime/lib/libcpptest  clean all 
 
+    - name: Run application
+      run: ./timer
+    
     - name: Run C/C++test
       uses: parasoft/run-cpptest-action@2.0.0
       with:
         # C/C++test workspace will be created in '../workspace'.
         # C/C++test will create a new project based on the provided .bdf file.
         # additionalParams: '-localsettings cpptestcli.properties -property bdf.import.compiler.family=gcc_9-64' # cmake version
-        additionalParams: '-localsettings cpptestcli.properties -property bdf.import.compiler.family=gcc_9-64'
+        # additionalParams: '-localsettings cpptestcli.properties -property bdf.import.compiler.family=gcc_9-64'
+        testConfig: 'Coverage'
         # input: build/cpptestscan.bdf # cmake version
-        input: cpptestscan.bdf
-        commandLinePattern: '${cpptestcli} -data ../workspace -config "${testConfig}" -report "${reportDir}" -bdf "${input}" ${additionalParams}'
+        input: cpptest_results.clog
+        #commandLinePattern: '${cpptestcli} -data ../workspace -config "${testConfig}" -report "${reportDir}" -bdf "${input}" ${additionalParams}'
 
     # Runs code analysis with C/C++test.
     # - name: Run C/C++test
@@ -63,11 +70,11 @@ jobs:
     #  #   additionalParams: '-property report.custom.extension=sarif -property report.custom.xsl.file=${PARASOFT_SARIF_XSL}'
 
     # Uploads analysis results in the SARIF format, so that they are displayed as GitHub code scanning alerts.
-    - name: Upload results (SARIF)
-      if: always()
-      uses: github/codeql-action/upload-sarif@v2
-      with:
-        sarif_file: reports/report.sarif
+    #- name: Upload results (SARIF)
+    #  if: always()
+    #  uses: github/codeql-action/upload-sarif@v2
+    #  with:
+    #    sarif_file: reports/report.sarif
     
     # Uploads an archive that includes all report files (.xml, .html, .sarif).
     - name: Archive reports
