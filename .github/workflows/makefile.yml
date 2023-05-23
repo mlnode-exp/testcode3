@@ -55,7 +55,7 @@ jobs:
         # C/C++test will create a new project based on the provided .bdf file.
         # additionalParams: '-localsettings cpptestcli.properties -property bdf.import.compiler.family=gcc_9-64' # cmake version
         # additionalParams: '-localsettings cpptestcli.properties -property bdf.import.compiler.family=gcc_9-64'
-        testConfig: 'Coverage'
+        testConfig: 'builtin://Coverage'
         # input: build/cpptestscan.bdf # cmake version
         input: cpptest_results.clog
         #commandLinePattern: '${cpptestcli} -data ../workspace -config "${testConfig}" -report "${reportDir}" -bdf "${input}" ${additionalParams}'
