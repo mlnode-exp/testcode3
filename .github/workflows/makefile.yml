@@ -14,13 +14,18 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel.
 jobs:
   run-cpptest-make:
-    permissions:
-      # required for all workflows
-      security-events: write
+    name: Analyze project with C/C++test
 
     # Specifies the type of runner that the job will run on.
     runs-on: self-hosted
-    name: Analyze project with C/C++test
+
+    # Specifies required permissions for upload-sarif action
+    permissions:
+      # required for all workflows
+      security-events: write
+      # only required for workflows in private repositories
+      actions: read
+      contents: read
 
     # Steps represent a sequence of tasks that will be executed as part of the job.
     steps:
@@ -29,52 +34,26 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
     
-    # Configures your CMake project. Be sure the compile_commands.json file is created.
-    #- name: Configure project
-    #  run: cmake -S . -B build
-
-    # Builds your CMake project. (This step is optional, as it is not required for code analysis).
-    #- name: Build project (optional)
-    #  run: cd build; cpptesttrace --cpptesttraceProjectName=Timer make clean all
-    
     # Builds your Make project using 'cpptesttrace' to collect input data for code analysis.
     # Be sure 'cpptesttrace' is available on $PATH.
     - name: Build project
       run: cpptesttrace make clean all
-  
-    - name: Prepare instrumentation
-      run: make CC="cpptestcc -compiler gcc_9-64 -line-coverage -- gcc" LINK_FLAGS=/home/mlyko/sesja_2023_1/standard/cpptest/runtime/lib/libcpptest64.so  clean all 
-
-    - name: Run application
-      run: ./timer.exe
-    
-    - name: Run C/C++test
-      uses: parasoft/run-cpptest-action@2.0.1
-      with:
-        # C/C++test workspace will be created in '../workspace'.
-        # C/C++test will create a new project based on the provided .bdf file.
-        # additionalParams: '-localsettings cpptestcli.properties -property bdf.import.compiler.family=gcc_9-64' # cmake version
-        # additionalParams: '-localsettings cpptestcli.properties -property bdf.import.compiler.family=gcc_9-64'
-        testConfig: 'builtin://Coverage'
-        # input: build/cpptestscan.bdf # cmake version
-        input: cpptest_results.clog
-        #commandLinePattern: '${cpptestcli} -data ../workspace -config "${testConfig}" -report "${reportDir}" -bdf "${input}" ${additionalParams}'
 
     # Runs code analysis with C/C++test.
-    # - name: Run C/C++test
-    #  # Use the 'run-cpptest-action' GitHub action.
-    #  uses: parasoft/run-cpptest-action@2.0.0
-    #  # Uncomment if you are using C/C++test 2020.2 to generate a SARIF report:
-    #  # with:
-    #  #   reportFormat: xml,html,custom
-    #  #   additionalParams: '-property report.custom.extension=sarif -property report.custom.xsl.file=${PARASOFT_SARIF_XSL}'
+    - name: Run C/C++test
+      # Use the 'run-cpptest-action' GitHub action.
+      uses: parasoft/run-cpptest-action@2.0.1
+      # Uncomment if you are using C/C++test 2020.2 to generate a SARIF report:
+      # with:
+      #   reportFormat: xml,html,custom
+      #   additionalParams: '-property report.custom.extension=sarif -property report.custom.xsl.file=${PARASOFT_SARIF_XSL}'
 
     # Uploads analysis results in the SARIF format, so that they are displayed as GitHub code scanning alerts.
-    #- name: Upload results (SARIF)
-    #  if: always()
-    #  uses: github/codeql-action/upload-sarif@v2
-    #  with:
-    #    sarif_file: reports/report.sarif
+    - name: Upload results (SARIF)
+      if: always()
+      uses: github/codeql-action/upload-sarif@v2
+      with:
+        sarif_file: reports/report.sarif
     
     # Uploads an archive that includes all report files (.xml, .html, .sarif).
     - name: Archive reports
