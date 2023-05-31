@@ -17,12 +17,12 @@ jobs:
     name: Analyze project with C/C++test
 
     # Specifies required permissions for upload-sarif action
-    permissions:
+    #permissions:
       # required for all workflows
-      security-events: write
+      #security-events: write
       # only required for workflows in private repositories
-      actions: read
-      contents: read
+      #actions: read
+      #contents: read
 
     # Specifies the type of runner that the job will run on.
     runs-on: self-hosted
