@@ -139,6 +139,9 @@ void format_timer_record(int idx, char* buf)
     if (tr) {
         // do nothing
     }
+    if (tr) {
+        // do nothing
+    }
     
 }
 
