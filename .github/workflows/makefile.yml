@@ -49,7 +49,7 @@ jobs:
       run: ./timer.exe
     
     - name: Run C/C++test
-      uses: parasoft/run-cpptest-action@2.0.0
+      uses: parasoft/run-cpptest-action@2.0.1
       with:
         # C/C++test workspace will be created in '../workspace'.
         # C/C++test will create a new project based on the provided .bdf file.
