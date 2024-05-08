@@ -36,27 +36,27 @@ jobs:
       uses: actions/checkout@v4
 
     # Configures your CMake project. Be sure the compile_commands.json or the Timer.sln file is created.
-    #- name: Configure project
-    #  run: cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=1 -S . -B build
+    - name: Configure project
+      run: cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=1 -S . -B build
 
     # Builds your CMake project. (This step is optional, as it is not required for code analysis).
-    #- name: Build project (optional)
-    #  run: cmake --build build
+    - name: Build project (optional)
+      run: cmake --build build
     
     # Builds your Make project using 'cpptesttrace' to collect input data for code analysis.
     # Be sure 'cpptesttrace' is available on $PATH.
-    - name: Build project
-      run: cpptesttrace make clean all
+    #- name: Build project
+    #  run: cpptesttrace make clean all
 
     # Runs code analysis with C/C++test.
     - name: Run C/C++test
       # Use the 'run-cpptest-action' GitHub action.
       uses: parasoft/run-cpptest-action@2.0.1
       with:
-        compilerConfig: 'gcc_7-64'
+      #  compilerConfig: 'gcc_7-64'
         testConfig: 'builtin://Recommended Rules'
-      # compilerConfig: 'vc_14_2-64'
-      # input: 'build/Timer.vcxproj'
+        compilerConfig: 'vc_14_2-64'
+        input: 'build/Timer.vcxproj'
       # Uncomment if you are using C/C++test 2020.2 to generate a SARIF report:
       # with:
       #   reportFormat: xml,html,custom
