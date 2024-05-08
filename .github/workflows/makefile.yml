@@ -55,7 +55,7 @@ jobs:
       with:
         compilerConfig: 'vc_14_2-64'
         testConfig: 'builtin://Recommended Rules'
-        input: 'build/Timer.sln'
+        input: 'build/Timer.vcxproj'
       # Uncomment if you are using C/C++test 2020.2 to generate a SARIF report:
       # with:
       #   reportFormat: xml,html,custom
