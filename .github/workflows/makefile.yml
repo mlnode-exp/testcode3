@@ -53,8 +53,9 @@ jobs:
       # Use the 'run-cpptest-action' GitHub action.
       uses: parasoft/run-cpptest-action@2.0.1
       with:
-        compilerConfig: 'vc_14_2-64'
+        compilerConfig: 'gcc_7-64'
         testConfig: 'builtin://Recommended Rules'
+      # compilerConfig: 'vc_14_2-64'
       # input: 'build/Timer.vcxproj'
       # Uncomment if you are using C/C++test 2020.2 to generate a SARIF report:
       # with:
