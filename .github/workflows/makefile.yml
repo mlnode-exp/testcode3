@@ -55,6 +55,7 @@ jobs:
       with:
         compilerConfig: 'gcc_11-64'
         testConfig: 'builtin://Recommended Rules'
+        input: 'build/compile_commands.json'
       #  reportDir: 'reports2'
       #  installDir: 'C:/Apps/dtp/sesja/2024/cpptest'
       #  additionalParams: '-property console.verbosity.level=high'
