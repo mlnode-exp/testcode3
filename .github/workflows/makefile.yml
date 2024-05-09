@@ -35,17 +35,17 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
 
-    #- name: Instrumentation
-    #  run: make CC="cpptestcc -compiler gcc_11-64 -line-coverage -- g++" LINK_FLAGS=/home/mlyko/sesja/2024/cpptest/runtime/lib/libcpptest64.so clean all
+    - name: Instrumentation
+      run: make CC="cpptestcc -compiler gcc_11-64 -line-coverage -- g++" LINK_FLAGS=/home/mlyko/sesja/2024/cpptest/runtime/lib/libcpptest64.so clean all
 
-    #- name: Execute
-    #  run: ./timer.exe
+    - name: Execute
+      run: ./timer.exe
 
-    #- name: Compute coverage
-    #  run: cpptestct coverage compute -clog=cpptest_results.clog -map=.cpptest/cpptestcc -out=my_coverage -coverage=LC
+    - name: Compute coverage
+      run: cpptestct coverage compute -clog=cpptest_results.clog -map=.cpptest/cpptestcc -out=my_coverage -coverage=LC
 
-    #- name: Index coverage
-    #  run: cpptestct coverage index my_coverage/
+    - name: Index coverage
+      run: cpptestct coverage index my_coverage/
     # Configures your CMake project. Be sure the compile_commands.json or the Timer.sln file is created.
     #- name: Configure project
     #  run: cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=1 -S . -B build
@@ -92,4 +92,4 @@ jobs:
         name: CpptestReports
         path: |
           reports/*.*
-     #     my_coverage/*.*
+          my_coverage/*.*
