@@ -56,9 +56,9 @@ jobs:
         compilerConfig: 'gcc_11-64'
         testConfig: 'builtin://Recommended Rules'
         input: 'cpptestscan.bdf'
-        reportDir: 'reports3'
-        installDir: '/home/mlyko/sesja/2024/cpptest'
-        additionalParams: '-property console.verbosity.level=high'
+      #  reportDir: 'reports3'
+      #  installDir: '/home/mlyko/sesja/2024/cpptest'
+      #  additionalParams: '-property console.verbosity.level=high'
       # compilerConfig: 'vc_14_2-64'
       # input: 'build/Timer.vcxproj'
       # Uncomment if you are using C/C++test 2020.2 to generate a SARIF report:
@@ -71,7 +71,7 @@ jobs:
       if: always()
       uses: github/codeql-action/upload-sarif@v3
       with:
-        sarif_file: reports3/report.sarif
+        sarif_file: reports/report.sarif
     
     # Uploads an archive that includes all report files (.xml, .html, .sarif).
     - name: Archive reports
@@ -79,4 +79,4 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: CpptestReports
-        path: reports3/*.*
+        path: reports/*.*
