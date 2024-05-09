@@ -41,9 +41,11 @@ jobs:
     - name: Execute
       run: ./timer.exe
 
-    - name: Compute
+    - name: Compute coverage
       run: cpptestct coverage compute -clog=cpptest_results.clog -map=.cpptest/cpptestcc -out=my_coverage -coverage=LC
-      
+
+    - name: Index coverage
+      run: cpptestct coverage index my_coverage/
     # Configures your CMake project. Be sure the compile_commands.json or the Timer.sln file is created.
     #- name: Configure project
     #  run: cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=1 -S . -B build
