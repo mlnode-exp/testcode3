@@ -39,7 +39,7 @@ jobs:
       run: make CC="cpptestcc -compiler gcc_11-64 -line-coverage -- g++" LINK_FLAGS=/home/mlyko/sesja/2024/cpptest/runtime/lib/libcpptest64.so clean all
 
     - name: Execute
-      run: timer.exe
+      run: ./timer.exe
 
     - name: Compute
       run: cpptestct coverage compute -clog=cpptest_results.clog -map=.cpptest/cpptestcc -out=my_coverage -coverage=LC
@@ -88,4 +88,6 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: CpptestReports
-        path: reports/*.*
+        path: |
+          reports/*.*
+          my_coverage/*.*
