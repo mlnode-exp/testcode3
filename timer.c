@@ -142,6 +142,9 @@ void format_timer_record(int idx, char* buf)
     if (tr) {
         // duplicated
     }
+    if (tr) {
+        // duplicated
+    }
     
 }
 
