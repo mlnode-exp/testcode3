@@ -59,14 +59,16 @@ jobs:
     - name: Build project
       run: cpptesttrace make clean all
 
-    - name: Remove weorkspace
-      run:  if (Test-Path ../workspace) { rm -r -fo ../workspace }
+    - name: Remove workspace
+      # run:  if (Test-Path ../workspace) { rm -r -fo ../workspace }
+      run: rm -rf ../workspace
+      
     # Runs code analysis with C/C++test.
     - name: Run C/C++test
       # Use the 'run-cpptest-action' GitHub action.
       uses: parasoft/run-cpptest-action@2.0.1
       with:
-        compilerConfig: 'gcc_7-64'
+        compilerConfig: 'gcc_11-64'
         testConfig: 'builtin://Recommended Rules'
         input: 'cpptestscan.bdf'
       # --== PRO ==--
