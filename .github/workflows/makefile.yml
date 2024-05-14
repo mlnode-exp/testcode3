@@ -58,7 +58,10 @@ jobs:
     # Be sure 'cpptesttrace' is available on $PATH.
     - name: Build project
       run: cpptesttrace make clean all
-
+      
+    - name: Clean up workspace (PRO only)
+      run: rm -rf ../workspace
+      
     # Runs code analysis with C/C++test.
     - name: Run C/C++test
       # Use the 'run-cpptest-action' GitHub action.
