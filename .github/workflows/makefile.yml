@@ -59,9 +59,9 @@ jobs:
     - name: Build project
       run: cpptesttrace make clean all
 
-    #- name: Remove workspace
-    #  # run:  if (Test-Path ../workspace) { rm -r -fo ../workspace }
-    #  run: rm -rf ../workspace
+    - name: Remove workspace
+      # run:  if (Test-Path ../workspace) { rm -r -fo ../workspace }
+      run: rm -rf ../workspace
       
     # Runs code analysis with C/C++test.
     - name: Run C/C++test
@@ -72,12 +72,12 @@ jobs:
         testConfig: 'builtin://Recommended Rules'
         input: 'cpptestscan.bdf'
       # --== PRO ==--
-      #  additionalParams: '-property report.format=sarif -property bdf.import.compiler.family=gcc_11-64'
-      #  commandLinePattern: '${cpptestcli} -data ../workspace -config "${testConfig}" -report "${reportDir}" -bdf "${input}" ${additionalParams}'
-        commandLinePattern: '${cpptestcli} -compiler gcc_11-64 -config "${testConfig}" -report "${reportDir}" -input "${input}" ${additionalParams} -module .'
-        reportDir: 'reports4'
-        installDir: '/home/mlyko/azure/apps/cpptest'
-        additionalParams: '-property console.verbosity.level=high'
+        additionalParams: '-property report.format=sarif -property bdf.import.compiler.family=gcc_11-64'
+        commandLinePattern: '${cpptestcli} -data ../workspace -config "${testConfig}" -report "${reportDir}" -bdf "${input}" ${additionalParams}'
+      #  commandLinePattern: '${cpptestcli} -compiler gcc_11-64 -config "${testConfig}" -report "${reportDir}" -input "${input}" ${additionalParams} -module .'
+      #  reportDir: 'reports4'
+      #  installDir: '/home/mlyko/azure/apps/cpptest'
+      #  additionalParams: '-property console.verbosity.level=high'
       #  workingDir: 'C:/github/test-working-dir'
       #  compilerConfig: 'vc_14_2-64'
       #  input: 'build/Timer.vcxproj'
