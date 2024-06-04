@@ -59,21 +59,21 @@ jobs:
     - name: Build project
       run: cpptesttrace make clean all
 
-    - name: Remove workspace
-      # run:  if (Test-Path ../workspace) { rm -r -fo ../workspace }
-      run: rm -rf ../workspace
+    #- name: Remove workspace
+    #  # run:  if (Test-Path ../workspace) { rm -r -fo ../workspace }
+    #  run: rm -rf ../workspace
       
     # Runs code analysis with C/C++test.
     - name: Run C/C++test
       # Use the 'run-cpptest-action' GitHub action.
-      uses: parasoft/run-cpptest-action@2.0.1
+      uses: parasoft/run-cpptest-action@2.0.2
       with:
         compilerConfig: 'gcc_11-64'
         testConfig: 'builtin://Recommended Rules'
         input: 'cpptestscan.bdf'
       # --== PRO ==--
-        additionalParams: '-property report.format=sarif -property bdf.import.compiler.family=gcc_11-64'
-        commandLinePattern: '${cpptestcli} -data ../workspace -config "${testConfig}" -report "${reportDir}" -bdf "${input}" ${additionalParams}'
+      #  additionalParams: '-property report.format=sarif -property bdf.import.compiler.family=gcc_11-64'
+      #  commandLinePattern: '${cpptestcli} -data ../workspace -config "${testConfig}" -report "${reportDir}" -bdf "${input}" ${additionalParams}'
       #  reportDir: 'reports3'
       #  installDir: '/home/mlyko/sesja/2024/cpptest'
       #  additionalParams: '-property console.verbosity.level=high'
