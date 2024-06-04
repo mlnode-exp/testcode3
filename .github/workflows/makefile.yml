@@ -74,9 +74,9 @@ jobs:
       # --== PRO ==--
       #  additionalParams: '-property report.format=sarif -property bdf.import.compiler.family=gcc_11-64'
       #  commandLinePattern: '${cpptestcli} -data ../workspace -config "${testConfig}" -report "${reportDir}" -bdf "${input}" ${additionalParams}'
-        commandLinePattern: '${cpptestcli} -compiler gcc_7-64 -config "${testConfig}" -report "${reportDir}" -input "${input}" ${additionalParams} -module .'
+        commandLinePattern: '${cpptestcli} -compiler gcc_11-64 -config "${testConfig}" -report "${reportDir}" -input "${input}" ${additionalParams} -module .'
         reportDir: 'reports4'
-        installDir: 'c:/Azure/apps-standard/cpptest'
+        installDir: '/home/mlyko/azure/apps/cpptest'
         additionalParams: '-property console.verbosity.level=high'
       #  workingDir: 'C:/github/test-working-dir'
       #  compilerConfig: 'vc_14_2-64'
