@@ -77,8 +77,8 @@ jobs:
       #  additionalParams: '-property report.format=sarif -property bdf.import.compiler.family=gcc_7-64'
       #  commandLinePattern: '${cpptestcli} -data ../workspace -config "${testConfig}" -report "${reportDir}" -bdf "${input}" ${additionalParams}'
       #  commandLinePattern: '${cpptestcli} -compiler gcc_11-64 -config "${testConfig}" -report "${reportDir}" -input "${input}" ${additionalParams} -module .'
-        reportDir: 'reports5'
-        installDir: '/home/mlyko/github/dtp/cpptest'
+      #  reportDir: 'reports5'
+      #  installDir: '/home/mlyko/github/dtp/cpptest'
         additionalParams: '-property console.verbosity.level=high'
       #  workingDir: 'C:/github/test-working-dir'
       #  compilerConfig: 'vc_14_2-64'
@@ -93,7 +93,7 @@ jobs:
       if: always()
       uses: github/codeql-action/upload-sarif@v3
       with:
-        sarif_file: reports5/report.sarif
+        sarif_file: reports/report.sarif
     
     # Uploads an archive that includes all report files (.xml, .html, .sarif).
     - name: Archive reports
@@ -102,4 +102,4 @@ jobs:
       with:
         name: CpptestReports
         path: |
-          reports5/*.*
+          reports/*.*
