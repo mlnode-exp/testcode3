@@ -47,17 +47,17 @@ jobs:
     #- name: Index coverage
     #  run: cpptestct coverage index my_coverage/
     # Configures your CMake project. Be sure the compile_commands.json or the Timer.sln file is created.
-    #- name: Configure project
-    #  run: cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=1 -S . -B build
+    - name: Configure project
+      run: cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=1 -S . -B build
 
     # Builds your CMake project. (This step is optional, as it is not required for code analysis).
-    #- name: Build project (optional)
-    #  run: cmake --build build
+    - name: Build project (optional)
+      run: cmake --build build
     
     # Builds your Make project using 'cpptesttrace' to collect input data for code analysis.
     # Be sure 'cpptesttrace' is available on $PATH.
-    - name: Build project
-      run: cpptesttrace make clean all
+    #- name: Build project
+    #  run: cpptesttrace make clean all
 
     - name: Remove workspace
       run:  if (Test-Path ../workspace) { rm -r -fo ../workspace }
@@ -70,7 +70,8 @@ jobs:
       with:
         compilerConfig: 'gcc_7-64'
         testConfig: 'builtin://Recommended Rules'
-        input: 'cpptestscan.bdf'
+      #  input: 'cpptestscan.bdf'
+        input: 'build/compile_commands.json'
       # --== PRO ==--
       #  additionalParams: '-property report.format=sarif -property bdf.import.compiler.family=gcc_7-64'
       #  commandLinePattern: '${cpptestcli} -data ../workspace -config "${testConfig}" -report "${reportDir}" -bdf "${input}" ${additionalParams}'
