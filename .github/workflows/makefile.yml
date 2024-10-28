@@ -71,7 +71,7 @@ jobs:
         compilerConfig: 'gcc_13-64'
         testConfig: 'builtin://Recommended Rules'
         input: 'cpptestscan.bdf'
-        workingDir: '/home/mlyko/github/workdir'
+      #  workingDir: '/home/mlyko/github/workdir'
       #  input: 'build/compile_commands.json'
       # --== PRO ==--
       #  additionalParams: '-property report.format=sarif -property bdf.import.compiler.family=gcc_7-64'
