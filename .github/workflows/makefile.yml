@@ -68,7 +68,7 @@ jobs:
       # Use the 'run-cpptest-action' GitHub action.
       uses: parasoft/run-cpptest-action@2.0.2
       with:
-        compilerConfig: 'gcc_7-64'
+        compilerConfig: 'gcc_13-64'
         testConfig: 'builtin://Recommended Rules'
       #  input: 'cpptestscan.bdf'
         input: 'build/compile_commands.json'
