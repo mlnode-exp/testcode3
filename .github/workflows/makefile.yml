@@ -36,7 +36,7 @@ jobs:
       uses: actions/checkout@v4
 
     - name: Instrumentation
-      run: make CC="cpptestcc -compiler gcc_11-64 -line-coverage -- g++" LINK_FLAGS=/home/mlyko/github/cpptest/runtime/lib/libcpptest64.so clean all
+      run: make CC="cpptestcc -compiler gcc_13-64 -line-coverage -- g++" LINK_FLAGS=/home/mlyko/github/cpptest/runtime/lib/libcpptest64.so clean all
 
     - name: Execute
       run: ./timer.exe
@@ -68,7 +68,7 @@ jobs:
       # Use the 'run-cpptest-action' GitHub action.
       uses: parasoft/run-cpptest-action@2.0.2
       with:
-        compilerConfig: 'gcc_7-64'
+        compilerConfig: 'gcc_13-64'
         testConfig: 'builtin://Recommended Rules'
         input: 'cpptestscan.bdf'
       #  workingDir: '/home/mlyko/github/workdir'
