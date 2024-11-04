@@ -60,8 +60,8 @@ jobs:
       run: cpptesttrace make clean all
 
     - name: Remove workspace
-      run:  if (Test-Path ../workspace) { rm -r -fo ../workspace }
-      # run: rm -rf ../workspace
+      # run:  if (Test-Path ../workspace) { rm -r -fo ../workspace }
+      run: rm -rf ../workspace
       
     # Runs code analysis with C/C++test.
     - name: Run C/C++test
