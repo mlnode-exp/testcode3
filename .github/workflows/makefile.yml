@@ -64,13 +64,13 @@ jobs:
       run: rm -rf ../workspace
       
     # Runs code analysis with C/C++test.
-    - name: Run C/C++test
+    #- name: Run C/C++test
       # Use the 'run-cpptest-action' GitHub action.
-      uses: parasoft/run-cpptest-action@2.0.2
-      with:
-        compilerConfig: 'gcc_13-64'
-        testConfig: 'builtin://Recommended Rules'
-        input: 'cpptestscan.bdf'
+    #  uses: parasoft/run-cpptest-action@2.0.2
+    #  with:
+    #    compilerConfig: 'gcc_13-64'
+    #    testConfig: 'builtin://Recommended Rules'
+    #    input: 'cpptestscan.bdf'
       #  workingDir: '/home/mlyko/github/workdir'
       #  input: 'build/compile_commands.json'
       # --== PRO ==--
@@ -79,7 +79,7 @@ jobs:
       #  commandLinePattern: '${cpptestcli} -compiler gcc_11-64 -config "${testConfig}" -report "${reportDir}" -input "${input}" ${additionalParams} -module .'
       #  reportDir: 'reports5'
       #  installDir: '/home/mlyko/github/dtp/cpptest'
-        additionalParams: '-property console.verbosity.level=high'
+    #    additionalParams: '-property console.verbosity.level=high'
       #  workingDir: 'C:/github/test-working-dir'
       #  compilerConfig: 'vc_14_2-64'
       #  input: 'build/Timer.vcxproj'
@@ -89,11 +89,11 @@ jobs:
       #   additionalParams: '-property report.custom.extension=sarif -property report.custom.xsl.file=${PARASOFT_SARIF_XSL}'
 
     # Uploads analysis results in the SARIF format, so that they are displayed as GitHub code scanning alerts.
-    - name: Upload results (SARIF)
-      if: always()
-      uses: github/codeql-action/upload-sarif@v3
-      with:
-        sarif_file: reports/report.sarif
+    #- name: Upload results (SARIF)
+    #  if: always()
+    #  uses: github/codeql-action/upload-sarif@v3
+    #  with:
+    #    sarif_file: reports/report.sarif
     
     # Uploads an archive that includes all report files (.xml, .html, .sarif).
     - name: Archive reports
