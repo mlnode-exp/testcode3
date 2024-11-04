@@ -36,7 +36,7 @@ jobs:
       uses: actions/checkout@v4
 
     - name: Instrumentation
-      run: make CC="cpptestcc -compiler gcc_11-64 -line-coverage -- g++" LINK_FLAGS=/home/mlyko/sesja/2024/cpptest/runtime/lib/libcpptest64.so clean all
+      run: make CC="cpptestcc -compiler gcc_11-64 -line-coverage -- g++" LINK_FLAGS=/home/mlyko/github/cpptest/runtime/lib/libcpptest64.so clean all
 
     - name: Execute
       run: ./timer.exe
