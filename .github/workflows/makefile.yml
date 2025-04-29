@@ -1,6 +1,6 @@
 
-# This is a basic workflow to help you get started with the Run C/C++test action for Make-based project.
-name: C/C++test with Make
+# This is a basic workflow to help you get started with the Run C/C++test action for a CMake-based project.
+name: C/C++test with CMake
 
 on:
   # Triggers the workflow on push or pull request events but only for the master (main) branch.
@@ -17,9 +17,6 @@ jobs:
   run-cpptest-make:
     name: Analyze project with C/C++test
 
-    # Specifies the type of runner that the job will run on.
-    runs-on: self-hosted
-
     # Specifies required permissions for upload-sarif action
     permissions:
       # required for all workflows
@@ -28,6 +25,9 @@ jobs:
       actions: read
       contents: read
 
+    # Specifies the type of runner that the job will run on.
+    runs-on: self-hosted
+
     # Steps represent a sequence of tasks that will be executed as part of the job.
     steps:
 
@@ -35,58 +35,26 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
 
-    #- name: Instrumentation
-    #  run: make CC="cpptestcc -compiler gcc_13-64 -line-coverage -- g++" LINK_FLAGS=/home/mlyko/github/cpptest/runtime/lib/libcpptest64.so clean all
-
-    #- name: Execute
-    #  run: ./timer.exe
-
-    #- name: Compute coverage
-    #  run: cpptestct coverage compute -clog=cpptest_results.clog -map=.cpptest/cpptestcc -out=my_coverage -coverage=LC
-
-    #- name: Index coverage
-    #  run: cpptestct coverage index my_coverage/
-    # Configures your CMake project. Be sure the compile_commands.json or the Timer.sln file is created.
+    # Configures your CMake project. Be sure the compile_commands.json file is created.
     - name: Configure project
       run: cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=1 -S . -B build
 
     # Builds your CMake project. (This step is optional, as it is not required for code analysis).
     - name: Build project (optional)
-      run: cpptesttrace cmake --build build
-    
-    # Builds your Make project using 'cpptesttrace' to collect input data for code analysis.
-    # Be sure 'cpptesttrace' is available on $PATH.
-    #- name: Build project
-    #  run: cpptesttrace make clean all
+      run: cmake --build build
 
-    - name: Remove workspace
-      # run:  if (Test-Path ../workspace) { rm -r -fo ../workspace }
-      run: rm -rf ../workspace
-      
     # Runs code analysis with C/C++test.
     - name: Run C/C++test
       # Use the 'run-cpptest-action' GitHub action.
       uses: parasoft/run-cpptest-action@2.0.2
+      # Optional parameters for 'run-cpptest-action'.
       with:
-        compilerConfig: 'gcc_13-64'
-        testConfig: 'builtin://Recommended Rules'
-        input: 'build/cpptestscan.bdf'
-      #  workingDir: '/home/mlyko/github/workdir'
-      #  input: 'build/compile_commands.json'
-      # --== PRO ==--
-        additionalParams: '-property report.format=sarif -property bdf.import.compiler.family=gcc_13-64'
-        commandLinePattern: '${cpptestcli} -data ../workspace -config "${testConfig}" -report "${reportDir}" -bdf "${input}" ${additionalParams}'
-      #  commandLinePattern: '${cpptestcli} -compiler gcc_11-64 -config "${testConfig}" -report "${reportDir}" -input "${input}" ${additionalParams} -module .'
-      #  reportDir: 'reports5'
-      #  installDir: '/home/mlyko/github/dtp/cpptest'
-      #  additionalParams: '-property console.verbosity.level=high'
-      #  workingDir: 'C:/github/test-working-dir'
-      #  compilerConfig: 'vc_14_2-64'
-      #  input: 'build/Timer.vcxproj'
-      # Uncomment if you are using C/C++test 2020.2 to generate a SARIF report:
-      # with:
-      #   reportFormat: xml,html,custom
-      #   additionalParams: '-property report.custom.extension=sarif -property report.custom.xsl.file=${PARASOFT_SARIF_XSL}'
+        # For CMake-based projects, use a compile_commands.json file as the input for analysis. 
+        input: build/compile_commands.json
+        compiler: gcc_7-64
+        # Uncomment if you are using C/C++test 2020.2 to generate a SARIF report:
+        # reportFormat: xml,html,custom
+        # additionalParams: '-property report.custom.extension=sarif -property report.custom.xsl.file=${PARASOFT_SARIF_XSL}'
 
     # Uploads analysis results in the SARIF format, so that they are displayed as GitHub code scanning alerts.
     - name: Upload results (SARIF)
@@ -101,6 +69,4 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: CpptestReports
-        path: |
-          reports/*.*
-          my_coverage/*.*
+        path: reports/*.*
