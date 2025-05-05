@@ -47,7 +47,7 @@ jobs:
       # Optional parameters for 'run-cpptest-action'.
       with:         
         # For CMake-based projects, use a compile_commands.json file as the input for analysis. 
-        input: build/compile_commands.json
+        input: build/Timer.sln
         compiler: vc_14_3-64
         # Uncomment if you are using C/C++test 2020.2 to generate a SARIF report:         
         # reportFormat: xml,html,custom
