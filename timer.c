@@ -123,18 +123,21 @@ void delete_timer_record(int idx)
     free(tr);
 }
 
+// add some new lines
+// add some new lines
+// add some new lines
 void format_timer_record(int idx, char* buf)
 {
     char start[BUF_SIZE];
     char end[BUF_SIZE];
     
-    struct timer_record* tr = timer_records[idx];
+    struct timer_record* timerRecord = timer_records[idx];
 
-    strftime(start, BUF_SIZE, "%I:%M %p", localtime(&tr->starttime));
-    strftime(end, BUF_SIZE, "%I:%M %p", localtime(&tr->endtime));
+    strftime(start, BUF_SIZE, "%I:%M %p", localtime(&timerRecord->starttime));
+    strftime(end, BUF_SIZE, "%I:%M %p", localtime(&timerRecord->endtime));
 
-    if (tr) {
-        sprintf(buf, "%d\t%s\t%s\t%d\n", idx+1, start, end, tr->channel);
+    if (timerRecord) {
+        sprintf(buf, "%d\t%s\t%s\t%d\n", idx+1, start, end, timerRecord->channel);
     }
 }
 
