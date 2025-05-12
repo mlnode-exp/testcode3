@@ -35,27 +35,18 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
 
-    # Configures your CMake project. Be sure the compile_commands.json file is created.
-    - name: Configure project
-      run: cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=1 -S . -B build
-
     # Builds your CMake project. (This step is optional, as it is not required for code analysis).
-    - name: Build project (optional)
-      run: cmake --build build
+    - name: Build project
+      run: cpptesttrace make clean all
 
     # Runs code analysis with C/C++test.
+    # Runs code analysis with C/C++test.
     - name: Run C/C++test
-      # Use the 'run-cpptest-action' GitHub action.
       uses: parasoft/run-cpptest-action@2.0.2
-      # Optional parameters for 'run-cpptest-action'.
-      with:
-        # For CMake-based projects, use a compile_commands.json file as the input for analysis. 
-        input: build/compile_commands.json
-        compilerConfig: gcc_13-64
-        # Uncomment if you are using C/C++test 2020.2 to generate a SARIF report:
-        # reportFormat: xml,html,custom
-        # additionalParams: '-property report.custom.extension=sarif -property report.custom.xsl.file=${PARASOFT_SARIF_XSL}'
-
+      with:     # C/C++test will use options from 'config.properties'.
+        additionalParams: '-property report.format=sarif'
+        commandLinePattern: '${cpptestcli} -data ../workspace -config "${testConfig}" -report "${reportDir}" -bdf "${input}" ${additionalParams}'
+        
     # Uploads analysis results in the SARIF format, so that they are displayed as GitHub code scanning alerts.
     - name: Upload results (SARIF)
       if: always()
