@@ -44,7 +44,7 @@ jobs:
     - name: Run C/C++test
       uses: parasoft/run-cpptest-action@2.0.2
       with:     # C/C++test will use options from 'config.properties'.
-        compiler: 'gcc_10-64'
+        compilerConfig: 'gcc_10-64'
         
     # Uploads analysis results in the SARIF format, so that they are displayed as GitHub code scanning alerts.
     - name: Upload results (SARIF)
