@@ -44,13 +44,12 @@ jobs:
     - name: Run C/C++test
       uses: parasoft/run-cpptest-action@2.0.2
       with:     # C/C++test will use options from 'config.properties'.
-        additionalParams: '-property report.format=sarif'
-        commandLinePattern: '${cpptestcli} -data ../workspace -config "${testConfig}" -report "${reportDir}" -bdf "${input}" ${additionalParams}'
+        compiler: 'gcc_10-64'
         
     # Uploads analysis results in the SARIF format, so that they are displayed as GitHub code scanning alerts.
     - name: Upload results (SARIF)
       if: always()
-      uses: github/codeql-action/upload-sarif@v3
+      uses: github/codeql-action/upload-sarif@v4
       with:
         sarif_file: reports/report.sarif
     
