@@ -8,8 +8,6 @@ if(CPPTEST_COVERAGE)
   include(cpptest-coverage.cmake)
 endif()
 
-add_compile_definitions(STDINPUT)
-
 add_executable(timer
  clock.c
  driver.c
