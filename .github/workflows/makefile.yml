@@ -51,7 +51,7 @@ jobs:
       with:
         compilerConfig: vc_14_3-64
         # For CMake-based projects, use a compile_commands.json file as the input for analysis. 
-        input: build/Timer.vcxproj
+        input: build/timer.vcxproj
         # Uncomment if you are using C/C++test 2020.2 to generate a SARIF report:
         # reportFormat: xml,html,custom
         # additionalParams: '-property report.custom.extension=sarif -property report.custom.xsl.file=${PARASOFT_SARIF_XSL}'
