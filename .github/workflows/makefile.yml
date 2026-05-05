@@ -37,7 +37,7 @@ jobs:
     # Builds your Make project using 'cpptesttrace' to collect input data for code analysis.
     # Be sure 'cpptesttrace' is available on $PATH.
     - name: Cmake prepare
-      run: cmake -DCPPTEST_COVERAGE=ON -DCPPTEST_HOME=$CPPTEST_HOME -S . -B build
+      run: cmake -DCPPTEST_COVERAGE=ON -DCPPTEST_HOME=$CPPTEST_HOME -DCMAKE_EXPORT_COMPILE_COMMANDS=1 -S . -B build
     
     - name: Trace build
       run: cmake --build build
@@ -47,7 +47,24 @@ jobs:
 
     - name: Generate coverage report
       run: cmake --build build --target cpptest_coverage_report
-      
+
+    # Runs code analysis with C/C++test.
+    - name: Run C/C++test
+      # Use the 'run-cpptest-action' GitHub action.
+      uses: parasoft/run-cpptest-action@2.0.2
+      # Optional parameters for 'run-cpptest-action'.
+      with:
+        # For CMake-based projects, use a compile_commands.json file as the input for analysis. 
+        input: build/compile_commands.json
+        compilerConfig: gcc_10-64
+
+    # Uploads analysis results in the SARIF format, so that they are displayed as GitHub code scanning alerts.
+    - name: Upload results (SARIF)
+      if: always()
+      uses: github/codeql-action/upload-sarif@v3
+      with:
+        sarif_file: reports/report.sarif
+        
     # Uploads an archive that includes all report files (.xml, .html, .sarif).
     - name: Archive reports
       if: always()
