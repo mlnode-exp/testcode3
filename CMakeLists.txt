@@ -5,7 +5,7 @@ project(Timer)
 set(CMAKE_EXPORT_COMPILE_COMMANDS 1)
 
 if(CPPTEST_COVERAGE)
-  include(cpptest-coverage.cmake)
+  include(${CPPTEST_HOME}/integration/cmake/cpptest-coverage.cmake)
 endif()
 
 add_executable(timer
