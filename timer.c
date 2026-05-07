@@ -136,6 +136,11 @@ void format_timer_record(int idx, char* buf)
     if (tr) {
         sprintf(buf, "%d\t%s\t%s\t%d\n", idx+1, start, end, tr->channel);
     }
+    if (tr) {
+        print_string("\n It is ok.");
+    } else {
+        print_string("\n It is failed.");
+    }
 }
 
 void list_timers()
