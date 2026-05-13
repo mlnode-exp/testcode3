@@ -46,7 +46,7 @@ jobs:
         # C/C++test workspace will be created in '../workspace'.
         # C/C++test will create a new project based on the provided .bdf file.
         input: cpptestscan.bdf
-        additionalParams: '-localsettings /home/mlyko/github/license.properties -localsettings /home/mlyko/github/report.properties -localsettings /home/mlyko/github/compiler.properties'
+        additionalParams: '-localsettings C:/github/license.properties -localsettings C:/github/report.properties -localsettings C:/github/compiler.properties'
         commandLinePattern: '${cpptestcli} -data ../workspace -config "${testConfig}" -report "${reportDir}" -bdf "${input}" ${additionalParams}'
 
     # Uploads analysis results in the SARIF format, so that they are displayed as GitHub code scanning alerts.
