@@ -129,12 +129,16 @@ void format_timer_record(int idx, char* buf)
     char end[BUF_SIZE];
     
     struct timer_record* tr = timer_records[idx];
+    struct timer_record* tr2 = timer_records[idx];
 
     strftime(start, BUF_SIZE, "%I:%M %p", localtime(&tr->starttime));
     strftime(end, BUF_SIZE, "%I:%M %p", localtime(&tr->endtime));
 
     if (tr) {
         sprintf(buf, "%d\t%s\t%s\t%d\n", idx+1, start, end, tr->channel);
+    }
+    if (tr2) {
+        sprintf(buf, "%d\t%s\t%s\t%d\n", idx+1, start, end, tr2->channel);
     }
 }
 
