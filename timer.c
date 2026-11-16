@@ -136,6 +136,34 @@ void format_timer_record(int idx, char* buf)
     if (tr) {
         sprintf(buf, "%d\t%s\t%s\t%d\n", idx+1, start, end, tr->channel);
     }
+
+    //
+    //
+    //
+    //
+    //
+    //
+    //
+    //
+    //
+    //
+    //
+    //
+    //
+    //
+    //
+    //
+
+   
+    if (tr) {
+        // duplicated
+    }
+    if (tr) {
+        // duplicated
+    }
+    if (tr) {
+        // duplicated
+    }    
 }
 
 void list_timers()
