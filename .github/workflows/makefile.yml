@@ -17,7 +17,7 @@ jobs:
     name: Analyze project with C/C++test
 
     # Specifies the type of runner that the job will run on.
-    runs-on: crowbar-vm
+    runs-on: self-hosted
 
     # Specifies required permissions for upload-sarif action
     permissions:
