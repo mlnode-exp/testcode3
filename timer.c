@@ -1,6 +1,8 @@
 
 /*
+ *
  * Timer class, stores timer records
+ *
  */
 
 #include <stdio.h>
